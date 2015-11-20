@@ -6,11 +6,14 @@ import java.sql.ResultSet;
 
 
 public class Dao {
-	public static Connection conn;
+	public Connection conn;
 	
 	public int checkLoginIn(String username,String password){
 		try{
 			conn=DBUtil.getConnection();
+			if (conn==null){
+				return 0;
+			}
 			String sql="select * from user where username=? and password=?";
 			PreparedStatement ps=conn.prepareStatement(sql);
 			ps.setString(1, username);
@@ -20,13 +23,23 @@ public class Dao {
 				return 1;
 			}
 			else{
-				return 0;
+				DBUtil.CloseConnection(conn);
+				return 2;
 			}
 		}
 		catch(Exception e){
 			e.printStackTrace();
 		}
 		return 0;
+	}
+	
+	public void OutLoginIn(){
+		try{
+			DBUtil.CloseConnection(conn);
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
 	}
 	
 	public int addContact(String name,String phone,String mail,String address){
@@ -88,7 +101,7 @@ public class Dao {
 			String updatesql="update contact set phone='"+phone+"',mail='"+mail+"',address='"+address+"' where name='"+name+"'";
 			PreparedStatement ps=conn.prepareStatement(updatesql);
 			int updateNum=ps.executeUpdate(updatesql);
-			
+		
 			if (updateNum==1){
 				return 1;
 			}

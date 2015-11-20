@@ -4,11 +4,37 @@ import java.util.Scanner;
 
 import test.entity.Contact;
 
-public class TestContacts {
+public class TestContacts {	
+	private static Dao dao=new Dao();
+	
 	public static void main(String[] args) {
 		Scanner s = new Scanner(System.in);
-		Dao dao =new Dao();
-		while(true){		
+		
+		while(true){
+			System.out.println("输入用户名：");
+			String username =s.nextLine();
+			System.out.println("输入密码：");
+			String password =s.nextLine();
+			
+			int logRet=dao.checkLoginIn(username, password);
+		
+			if (logRet==0){
+				System.out.println("Database Connecting Error！");
+			}
+			else if(logRet==1){
+				UseConnect();
+				break;
+			}
+			else{
+				System.out.println("Username and Password Error!");
+			}
+		}
+		s.close();
+	}
+	
+	private static void UseConnect(){
+		Scanner s = new Scanner(System.in);
+		while(true){			
 			System.out.println("输入操作：add，remove，update，search,all,exit");
 			String Choose =s.nextLine();
 			if (Choose.equals("add")){
@@ -32,7 +58,7 @@ public class TestContacts {
 					else if(ret==1){
 						System.out.println("Success!");
 					}
-					else{
+					else{ 
 						System.out.println("Error!");
 					}
 				}			
@@ -99,6 +125,7 @@ public class TestContacts {
 				}
 			}
 			else if(Choose.equals("exit")){
+				dao.OutLoginIn();
 				System.out.println("已退出!");
 				break;
 			}
@@ -107,6 +134,5 @@ public class TestContacts {
 			}
 		}
 		s.close();
-
 	}
 }
