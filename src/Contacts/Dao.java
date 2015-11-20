@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 
 
 public class Dao {
-	public Connection conn;
+	public static Connection conn;
 	
 	public int checkLoginIn(String username,String password){
 		try{
@@ -31,8 +31,6 @@ public class Dao {
 	
 	public int addContact(String name,String phone,String mail,String address){
 		try{
-			conn=DBUtil.getConnection();
-						
 			String ret=this.QueryContact(name);
 			if (!ret.equals("No Data!")){
 				return 0;
@@ -57,8 +55,6 @@ public class Dao {
 	
 	public int delContact(String name){
 		try{
-			conn=DBUtil.getConnection();
-			
 			String ret=this.QueryContact(name);
 			if (ret.equals("No Data!")){
 				return 0;
@@ -84,8 +80,6 @@ public class Dao {
 	
 	public int updateContact(String name,String phone,String mail,String address){
 		try{
-			conn=DBUtil.getConnection();
-			
 			String ret=this.QueryContact(name);
 			if (ret.equals("No Data!")){
 				return 0;
@@ -110,8 +104,6 @@ public class Dao {
 	
 	public String QueryContact(String name){
 		try{
-			conn=DBUtil.getConnection();
-			
 			String querysql="select * from contact where name=?";
 			PreparedStatement ps=conn.prepareStatement(querysql);
 			ps.setString(1, name);
@@ -131,8 +123,6 @@ public class Dao {
 	
 	public String QueryContactAll(){
 		try{
-			conn=DBUtil.getConnection();
-			
 			String querysql="select * from contact";
 			PreparedStatement ps=conn.prepareStatement(querysql);
 			ResultSet rs=ps.executeQuery();
