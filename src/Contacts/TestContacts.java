@@ -42,7 +42,6 @@ public class TestContacts {
 				String name=s.nextLine();
 				if(!dao.QueryContact(name).equals("No Data!")){			
 					System.out.println("联系人:"+name+"已存在！");
-					break;
 				}
 				else{
 					System.out.println("输入电话：");
@@ -83,7 +82,6 @@ public class TestContacts {
 				Boolean isAdd=true;
 				if(!dao.QueryContact(name).equals("No Data!")){			
 					System.out.println("联系人:"+name+"不存在！");
-					break;
 				}
 				else{
 					System.out.println("输入电话：");
