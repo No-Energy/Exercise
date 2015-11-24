@@ -7,16 +7,22 @@ public class SetText {
 		Scanner s=new Scanner(System.in);
 		System.out.println("input text");
 		String str =s.nextLine();
+		System.out.println("input password");
+		String pwd =s.nextLine();
 		s.close();
 		String convert_str = "";
-        int[] convert_int = { 1,2,3,4,5,6};
+        int[] convert_int = new int[pwd.length()];
+        for (int i = 0; i < pwd.length(); i++)
+        {
+        	convert_int[i] = Integer.parseInt(String.valueOf(pwd.charAt(i)));
+        }
         int start_num = 0;
         for(int i=0;i<str.length();i++)
         {
         	char c =str.charAt(i);
         	
             int cint = convert_int[start_num];
-            if (start_num == 5)
+            if (start_num == (pwd.length() - 1))
             {
                 start_num = 0;
             }
