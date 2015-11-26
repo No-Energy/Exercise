@@ -11,27 +11,38 @@ public class GetText {
 		System.out.println("input password");
 		String pwd =s.nextLine();
 		s.close();
-		int[] revert_int = new int[pwd.length()];
-        for (int i = 0; i < pwd.length(); i++)
-        {
-            revert_int[i] = Integer.parseInt(String.valueOf(pwd.charAt(i)));
-        }
-        int start_num = 0;
-        String revert_str = "";
-        for (int i=0;i<str.length();i++)
-        {
-        	char c=str.charAt(i);
-            int cint = revert_int[start_num];
-            if (start_num == (pwd.length() - 1))
-            {
-                start_num = 0;
-            }
-            else
-            {
-                start_num++;
-            }
-            revert_str += ((char)((int)c - cint));
-        }
+		String revert_str = Get(str,pwd);
         System.out.println(revert_str);
+	}
+	
+	public static String Get(String str,String pwd){
+		try{
+			int[] revert_int = new int[pwd.length()];
+	        for (int i = 0; i < pwd.length(); i++)
+	        {
+	            revert_int[i] = Integer.parseInt(String.valueOf(pwd.charAt(i)));
+	        }
+	        int start_num = 0;
+	        String revert_str = "";
+	        for (int i=0;i<str.length();i++)
+	        {
+	        	char c=str.charAt(i);
+	            int cint = revert_int[start_num];
+	            if (start_num == (pwd.length() - 1))
+	            {
+	                start_num = 0;
+	            }
+	            else
+	            {
+	                start_num++;
+	            }
+	            revert_str += ((char)((int)c - cint));
+	        }
+	        return revert_str;
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

@@ -10,28 +10,39 @@ public class SetText {
 		System.out.println("input password");
 		String pwd =s.nextLine();
 		s.close();
-		String convert_str = "";
-        int[] convert_int = new int[pwd.length()];
-        for (int i = 0; i < pwd.length(); i++)
-        {
-        	convert_int[i] = Integer.parseInt(String.valueOf(pwd.charAt(i)));
-        }
-        int start_num = 0;
-        for(int i=0;i<str.length();i++)
-        {
-        	char c =str.charAt(i);
-        	
-            int cint = convert_int[start_num];
-            if (start_num == (pwd.length() - 1))
-            {
-                start_num = 0;
-            }
-            else
-            {
-                start_num++;
-            }
-            convert_str += ((char)((int)c + cint));
-        }
+		String convert_str = Set(str, pwd);  
         System.out.println(convert_str.trim());
+	}
+	
+	public static String Set(String str,String pwd){
+		try{
+			String convert_str = "";
+	        int[] convert_int = new int[pwd.length()];
+	        for (int i = 0; i < pwd.length(); i++)
+	        {
+	        	convert_int[i] = Integer.parseInt(String.valueOf(pwd.charAt(i)));
+	        }
+	        int start_num = 0;
+	        for(int i=0;i<str.length();i++)
+	        {
+	        	char c =str.charAt(i);
+	        	
+	            int cint = convert_int[start_num];
+	            if (start_num == (pwd.length() - 1))
+	            {
+	                start_num = 0;
+	            }
+	            else
+	            {
+	                start_num++;
+	            }
+	            convert_str += ((char)((int)c + cint));
+	        }
+	        return convert_str;
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		return null;
 	}
 }
